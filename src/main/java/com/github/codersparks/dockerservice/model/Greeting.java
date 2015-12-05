@@ -1,5 +1,7 @@
 package com.github.codersparks.dockerservice.model;
 
+import java.util.Date;
+
 /**
  * Created by codersparks on 05/12/2015.
  */
@@ -7,6 +9,15 @@ public class Greeting {
 
     private String name;
     private String greeting = "hello";
+    private Date date = new Date();
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
 
     public String getGreeting() {
         return greeting;
