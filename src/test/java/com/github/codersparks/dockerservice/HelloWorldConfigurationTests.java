@@ -16,6 +16,7 @@ package com.github.codersparks.dockerservice;
  * limitations under the License.
  */
 
+import com.github.codersparks.dockerservice.model.Greeting;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Value;
@@ -46,10 +47,27 @@ public class HelloWorldConfigurationTests {
     private int port;
 
     @Test
-    public void testGreeting() throws Exception {
-        ResponseEntity<String> entity = new TestRestTemplate().getForEntity(
-                "http://localhost:" + this.port + "/", String.class);
+    public void testGreetingWorld() throws Exception {
+        ResponseEntity<Greeting> entity = new TestRestTemplate().getForEntity(
+                "http://localhost:" + this.port + "/", Greeting.class);
         assertEquals(HttpStatus.OK, entity.getStatusCode());
+
+        Greeting greeting = entity.getBody();
+
+        assertEquals("hello", greeting.getGreeting());
+        assertEquals("world", greeting.getName());
+    }
+
+    @Test
+    public void testGreetingBob() throws Exception {
+        ResponseEntity<Greeting> entity = new TestRestTemplate().getForEntity(
+                "http://localhost:" + this.port + "/bob", Greeting.class);
+        assertEquals(HttpStatus.OK, entity.getStatusCode());
+
+        Greeting greeting = entity.getBody();
+
+        assertEquals("hello", greeting.getGreeting());
+        assertEquals("bob", greeting.getName());
     }
 
 }
